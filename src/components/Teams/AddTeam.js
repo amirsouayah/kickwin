@@ -1,9 +1,11 @@
 import React from 'react';
 import TeamForm from './TeamForm';
 
-const AddTeam = () => {
+const AddTeam = ({history, teams, setTeams}) => {
   const handleOnSubmit = (team) => {
     console.log(team);
+    setTeams([team,...teams]);
+    history.push('/');
   };
 
   return (

@@ -16,6 +16,11 @@ import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import List from "components/list";
 // import TeamsList from "components/Teams/TeamList";
 // import AddTeam from "components/Teams/AddTeam";
+import Login from "../../views/auth/Login";
+import Register from "../../views/auth/Register";
+
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import VpnKey from "@material-ui/icons/VpnKey";
 
 var routesOrga = [
   {
@@ -69,6 +74,23 @@ var routesOrga = [
     component: Tables,
     layout: "/organiser",
   },
+   {
+    path: "/login",
+    name: "Login",
+    icon: VpnKey,
+    iconColor: "Info",
+    component: Login,
+    layout: "/auth",
+  },
+  {
+    path: "/register",
+    name: "Register",
+    icon: AccountCircle,
+    iconColor: "ErrorLight",
+    component: Register,
+    layout: "/auth",
+  },
+  
   
   
 ];

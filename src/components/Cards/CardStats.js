@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 
 // core components
 import componentStyles from "assets/theme/components/card-stats.js";
-import boxShadows from "assets/theme/box-shadow.js";
+// import boxShadows from "assets/theme/box-shadow.js";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -45,7 +45,7 @@ function CardStats({ subtitle, title, footer, icon, color }) {
               </Box>
             </Grid>
             <Grid item xs={"auto"}>
-              <Box
+              {/* <Box
                 width="3rem"
                 height="3rem"
                 padding="12px"
@@ -68,7 +68,7 @@ function CardStats({ subtitle, title, footer, icon, color }) {
                 {icon && typeof icon === "string" ? (
                   <Box component="i" fontSize="1.25rem" className={icon} />
                 ) : null}
-              </Box>
+              </Box> */}
             </Grid>
           </Grid>
           {footer ? (

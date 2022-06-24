@@ -11,7 +11,7 @@ import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthHeader from "components/Headers/AuthHeader.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
-import routes from "routes.js";
+import routes from "../routes/AuthRouter/routesAuth"
 
 import componentStyles from "assets/theme/layouts/auth.js";
 
@@ -55,7 +55,7 @@ const Auth = () => {
       <div className="main-content" ref={mainContent}>
         <AuthNavbar />
         <AuthHeader />
-        {/* Page content */}
+        
         <Container
           component={Box}
           maxWidth="xl"

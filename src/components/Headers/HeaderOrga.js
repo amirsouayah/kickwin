@@ -6,21 +6,22 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 // @material-ui/icons components
-import ArrowDownward from "@material-ui/icons/ArrowDownward";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
+// import ArrowDownward from "@material-ui/icons/ArrowDownward";
+// import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import EmojiEvents from "@material-ui/icons/EmojiEvents";
 import GroupAdd from "@material-ui/icons/GroupAdd";
 import InsertChartOutlined from "@material-ui/icons/InsertChartOutlined";
 import PieChart from "@material-ui/icons/PieChart";
 
-// core components
+// // core components
 import CardStats from "components/Cards/CardStats.js";
 
 import componentStyles from "assets/theme/components/header.js";
+import pic from "../../assets/images/yellow.png";
 
 const useStyles = makeStyles(componentStyles);
 
-const Header = () => {
+const Header = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   return (
@@ -32,16 +33,62 @@ const Header = () => {
           classes={{ root: classes.containerRoot }}
         >
           <div>
-            <Grid container>
+            <Grid container spacing ={3}>
+            <Grid item xl={6} lg={6} xs={12} className="nbUntreated ">
+                <CardStats
+                  subtitle="Name Competition"
+                  title={props.name}
+                  icon={EmojiEvents}
+                  color="bgInfo"
+                  
+                  footer={
+                    <>
+                      
+                      {/* <Box component="span" whiteSpace="nowrap">
+                        Since last month
+                      </Box> */}
+                    </>
+                  }
+                />
+              </Grid> 
+            <Grid item xl={3} lg={6} xs={12} >
+              <CardStats
+                    
+                    
+                    title="Teams"
+                    icon={InsertChartOutlined}
+                    color="bgError"
+                    backgroundColor="red"
+                    footer={
+                      <>
+                        <Box
+                          
+                          component="span"
+                          fontSize=".875rem"
+                          color={theme.palette.success.main}
+                          marginRight=".5rem"
+                          display="flex"
+                          alignItems="center"
+                        >
+                        <img src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/football-icon.png" style={{height: 30}}/>
+                          
+                        </Box>
+                        <Box component="span" whiteSpace="nowrap">
+                          {props.numOfTeams}
+                        </Box>
+                      </>
+                    }
+                  />
+            </Grid>
               <Grid item xl={3} lg={6} xs={12}>
                 <CardStats
-                  subtitle="Total Competition"
-                  title="350,897"
+                  subtitle="Prize"
+                  title={props.prize}
                   icon={InsertChartOutlined}
                   color="bgError"
                   footer={
                     <>
-                      <Box
+                      {/* <Box
                         component="span"
                         fontSize=".875rem"
                         color={theme.palette.success.main}
@@ -58,20 +105,36 @@ const Header = () => {
                       </Box>
                       <Box component="span" whiteSpace="nowrap">
                         Since last month
-                      </Box>
+                      </Box> */}
+                    </>
+                  }
+                />
+              </Grid> 
+              <Grid item xl={6} lg={6} xs={12}>
+                <CardStats
+                  subtitle="Last Registration Date"
+                  title={props.date}
+                  icon={EmojiEvents}
+                  color="bgInfo"
+                  footer={
+                    <>
+{/*                       
+                      <Box component="span" whiteSpace="nowrap">
+                        Since last month
+                      </Box> */}
                     </>
                   }
                 />
               </Grid>
               <Grid item xl={3} lg={6} xs={12}>
                 <CardStats
-                  subtitle="New users"
-                  title="2,356"
+                  subtitle="Start Date"
+                  title={props.start}
                   icon={PieChart}
                   color="bgWarning"
                   footer={
                     <>
-                      <Box
+                      {/* <Box
                         component="span"
                         fontSize=".875rem"
                         color={theme.palette.error.main}
@@ -88,20 +151,20 @@ const Header = () => {
                       </Box>
                       <Box component="span" whiteSpace="nowrap">
                         Since last week
-                      </Box>
+                      </Box> */}
                     </>
                   }
                 />
               </Grid>
               <Grid item xl={3} lg={6} xs={12}>
                 <CardStats
-                  subtitle="Sales"
-                  title="924"
+                  subtitle="End Date"
+                  title={props.end}
                   icon={GroupAdd}
                   color="bgWarningLight"
                   footer={
                     <>
-                      <Box
+                      {/* <Box
                         component="span"
                         fontSize=".875rem"
                         color={theme.palette.warning.main}
@@ -118,44 +181,25 @@ const Header = () => {
                       </Box>
                       <Box component="span" whiteSpace="nowrap">
                         Since yesterday
-                      </Box>
+                      </Box> */}
                     </>
                   }
                 />
               </Grid>
-              <Grid item xl={3} lg={6} xs={12}>
-                <CardStats
-                  subtitle="Performance"
-                  title="49,65%"
-                  icon={EmojiEvents}
-                  color="bgInfo"
-                  footer={
-                    <>
-                      <Box
-                        component="span"
-                        fontSize=".875rem"
-                        color={theme.palette.success.main}
-                        marginRight=".5rem"
-                        display="flex"
-                        alignItems="center"
-                      >
-                        <Box
-                          component={ArrowUpward}
-                          width="1.5rem!important"
-                          height="1.5rem!important"
-                        />{" "}
-                        10%
-                      </Box>
-                      <Box component="span" whiteSpace="nowrap">
-                        Since last month
-                      </Box>
-                    </>
-                  }
-                />
-              </Grid>
+              
             </Grid>
           </div>
         </Container>
+        <style>
+          {`
+          .nbUntreated .makeStyles-cardRoot-84{
+            background-image: url('${pic}');
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+
+          `}
+        </style>
       </div>
     </>
   );

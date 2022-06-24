@@ -13,15 +13,16 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Search from "@material-ui/icons/Search";
 
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+// import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 
 // import NavbarDropdown from "components/Dropdowns/NavbarDropdown.js";
 
-import routes from "routesOrga.js";
+import routes from "../routes/OrganiserRouter/routesOrga";
 // import routes from "routes.js";
 
 import componentStyles from "assets/theme/layouts/admin.js";
+// import Popup from "components/PopUp/Popup";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -96,17 +97,22 @@ const Organiser = () => {
           />
 
           <Box position="relative" className={classes.mainContent}>
-            <AdminNavbar brandText={getBrandText(location.pathname)} />
-            <Switch>
-              {getRoutes(routes)}
-              <Redirect from="*" to="/organiser/pending" />
-              
-            </Switch>
+            {/* <AdminNavbar brandText={getBrandText(location.pathname)} /> */}
+          
             <Container
               maxWidth={false}
               component={Box}
               classes={{ root: classes.containerRoot }}
+              marginTop="1rem"
             >
+            <Switch>
+
+              {getRoutes(routes)}
+              <Redirect from="*" to="/organiser/index" />
+              
+            </Switch>
+            
+              {/* <Popup/> */}
               <AdminFooter />
             </Container>
           </Box>
