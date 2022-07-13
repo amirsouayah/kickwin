@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,13 +6,19 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Calendar from 'views/stadium/Calendar';
-import Header from 'components/Headers/HeaderOrga';
+// import Calendar from 'views/stadium/Calendar';
+import BigCalendar from 'views/stadium/BigCalendar';
+
+import HeaderStadium from 'components/Headers/HeaderStadium';
 import SimpleRating from 'components/Rating/Rating';
+import axios from 'axios';
+import { useParams } from "react-router-dom";
+
 // import SingleLineImageList from 'components/ImageList/SingleLineImageList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+
 
   return (
     <div
@@ -59,31 +65,53 @@ export default function SimpleTabs() {
     setValue(newValue);
   };
 
+  const [data, setData] = useState();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+
+    getStadium();
+
+  }, []);
+
+
+  const getStadium = () => {
+    axios.get(`http://localhost:5000/stadium/search/${id}`)
+      .then(res => {
+        if (res.status === 200) {
+          console.log(res.data)
+          setData(res.data)
+        }
+      }).catch(err => {
+      });
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Information" {...a11yProps(0)} style={{width : "10%"}} />
-          <Tab label="Opening Prises" {...a11yProps(1)} style={{width : "10%"}}/>
-          <Tab label="Schedule" {...a11yProps(2)} style={{width : "10%"}}/>
-          <Tab label="Gallery" {...a11yProps(3)} style={{width : "10%"}}/>
-          <Tab label="Ratings" {...a11yProps(4)} style={{width : "10%"}}/>
+          <Tab label="Information" {...a11yProps(0)} style={{ width: "10%" }} />
+          <Tab label="Opening Prises" {...a11yProps(1)} style={{ width: "10%" }} />
+          <Tab label="Schedule" {...a11yProps(2)} style={{ width: "10%" }} />
+          <Tab label="Gallery" {...a11yProps(3)} style={{ width: "10%" }} />
+          <Tab label="Ratings" {...a11yProps(4)} style={{ width: "10%" }} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0} >
-        <Header />
+        <HeaderStadium data={data} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <HeaderStadium data={data} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Calendar />
+        <BigCalendar id={id} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-      {/* <SingleLineImageList/> */}
+        {/* <SingleLineImageList/> */}
       </TabPanel>
       <TabPanel value={value} index={4}>
-       <SimpleRating/>
+        <SimpleRating />
       </TabPanel>
     </div>
   );

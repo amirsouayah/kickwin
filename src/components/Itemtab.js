@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
+
 // import Button from "@material-ui/core/Button";
 
 // import LinearProgress from "@material-ui/core/LinearProgress";
@@ -29,15 +30,25 @@ import Modal from '@material-ui/core/Modal';
 // import Container from "@material-ui/core/Container";
 // core components
 
-
+function getModalStyle() {
+  const top = 50
+  const left = 50
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
 
   paper: {
-    padding: theme.spacing(3),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    maxWidth: "100%",
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    // height: '96%',
+
   },
 }));
 
@@ -45,13 +56,14 @@ const Itemtab = (props) => {
   const history = useHistory();
   const [datateam, setDatateam] = useState();
   const [open, setOpen] = React.useState(false);
+  const [modalStyle] = React.useState(getModalStyle);
   const classes = useStyles();
   // const [modalStyle] = React.useState(getModalStyle);
 
   const removeteam = (id) => {
     swal({
       title: "Are you sure?",
-      text: "Are you sure that you want to leave this page?",
+      text: "Are you sure that you want to leave this Team?",
       icon: "warning",
       dangerMode: true,
       buttons: true,
@@ -72,10 +84,9 @@ const Itemtab = (props) => {
 
   const getteam = (id) => {
     setOpen(true)
-    axios.get(`http://localhost:5000/team/find/${id}`)
+    axios.get(`http://localhost:5000/team/search/${id}`)
       .then(res => {
         if (res.status === 200) {
-          //  console.log(res.data)
           setDatateam(res.data)
         }
       }).catch(err => {
@@ -84,8 +95,8 @@ const Itemtab = (props) => {
 
   return (
     <>
-      <TableRow onClick={() => history.push(`/organiser/players/${props.item._id}`)}>
-        <TableCell
+      <TableRow>
+        <TableCell onClick={() => history.push(`/organiser/players/${props.item._id}`)}
           classes={{
             root:
               classes.tableCellRoot +
@@ -101,23 +112,17 @@ const Itemtab = (props) => {
               component={Avatar}
               marginRight="1rem"
               alt="..."
-              // src={require("assets/img/theme/bootstrap.jpg").default}
               src={props.item.photo}
             />
             <Box display="flex" alignItems="flex-start">
-              <Box fontSize=".875rem" component="span" width="50%">
+              <Box fontSize=".875rem" component="span">
                 {props.item.name}
               </Box>
             </Box>
           </Box>
         </TableCell>
         <TableCell classes={{ root: classes.tableCellRoot }}>
-          <Box display="flex" alignItems="flex-start">
-            <Box fontSize=".875rem" component="span" >
-              {props.item.leader}
-            </Box>
-          </Box>
-          {/* <img src={props.item.photo}/> */}
+          {props.item.leader.toUpperCase()}
         </TableCell>
 
 
@@ -145,7 +150,7 @@ const Itemtab = (props) => {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <div className={classes.paper}>
+        <div style={modalStyle} className={classes.paper}>
           <Form sendData='update' dataForm={datateam} setOpen={setOpen} getAllTeam={props.getAllTeam} />
         </div>
       </Modal>

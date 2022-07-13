@@ -18,15 +18,22 @@ import Settings from "@material-ui/icons/Settings";
 
 // core components
 import componentStyles from "assets/theme/components/navbar-dropdown.js";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(componentStyles);
 
 export default function NavbarDropdown() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [user, setUser] = React.useState(JSON.parse(window.localStorage.getItem("user")));
+  const history = useHistory();
   const isMenuOpen = Boolean(anchorEl);
 
+  const logout = () => {
+
+    window.localStorage.clear();
+    history.push(`/auth/login`)
+  };
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -117,12 +124,13 @@ export default function NavbarDropdown() {
         onClick={handleMenuClose}
       >
         <Box
+
           component={DirectionsRun}
           width="1.25rem!important"
           height="1.25rem!important"
           marginRight="1rem"
         />
-        <span>Logout</span>
+        <span onClick={() => logout()}>Logout</span>
       </Box>
     </Menu>
   );
@@ -143,12 +151,12 @@ export default function NavbarDropdown() {
       >
         <Avatar
           alt="..."
-          src={require("assets/img/theme/team-4-800x800.jpg").default}
+          src={require("assets/img/theme/team-1-800x800.jpg").default}
           classes={{
             root: classes.avatarRoot,
           }}
         />
-        <Hidden smDown>Amir Souayah</Hidden>
+        <Hidden smDown>{user && user.name}</Hidden>
       </Button>
       {renderMenu}
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
@@ -17,33 +17,41 @@ import PieChart from "@material-ui/icons/PieChart";
 import CardStats from "components/Cards/CardStats.js";
 import pic from "../../assets/images/yellow.png";
 import componentStyles from "assets/theme/components/header.js";
-import axios from "axios";
-import RecipeReviewCard from "components/Card Match/CardMatch";
+// import axios from "axios";
+// import RecipeReviewCard from "components/Card Match/CardMatch";
 // import CardMatch from "components/Card Match/CardMatch";
 
 const useStyles = makeStyles(componentStyles);
 
-const Header = () => {
+const Header = (props) => {
   const classes = useStyles();
   const theme = useTheme();
-  const [dataleague, setDataleague] = useState();
+  // const [dataleague, setDataleague] = useState();
+  // const [data, setData] = useState();
 
-  useEffect(() => {
 
-    getAllLeague();
+  // useEffect(() => {
 
-  }, []);
 
-  const getAllLeague = () => {
-    axios.get(`http://localhost:5000/league/search`)
-      .then(res => {
-        if (res.status === 200) {
-          setDataleague(res.data)
+  //   getDetailsLeague();
 
-        }
-      }).catch(err => {
-      });
-  }
+
+  // }, []);
+
+
+  // const getDetailsLeague = () => {
+  //   axios.get(`http://localhost:5000/league/search/`)
+  //     .then(res => {
+  //       if (res.status === 200) {
+  //         setData(res.data)
+  //         // console.log("league ", res.data.length);
+  //       }
+  //     }).catch(err => {
+  //     });
+  // }
+
+
+
   return (
     <>
       <div className={classes.header}>
@@ -54,8 +62,11 @@ const Header = () => {
         >
           <div>
             <Grid container>
-              <Grid item xl={3} lg={6} xs={12}>
+              {/* <Grid item xl={12} lg={12} xs={12}>
                 <RecipeReviewCard />
+              </Grid> */}
+              <Grid item xl={3} lg={6} xs={12}>
+                {/* <RecipeReviewCard /> */}
                 <CardStats
                   subtitle="Total des Competitions"
                   title=""

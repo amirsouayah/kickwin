@@ -71,7 +71,7 @@ const TeamForm = (props) => {
 
   return (
     <div className="main-form">
-       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+      {errorMsg && <p className="errorMsg">{errorMsg}</p>}
       <Form onSubmit={handleOnSubmit} >
         <Form.Group controlId="name">
           <Form.Label>Team Name</Form.Label>
@@ -121,8 +121,8 @@ const TeamForm = (props) => {
           Submit
         </Button>
       </Form>
-      
-        {/* <TextField
+
+      {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -164,7 +164,7 @@ const TeamForm = (props) => {
         <Button variant="contained">
           Submit
         </Button> */}
-        
+
     </div>
   );
 };

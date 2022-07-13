@@ -1,0 +1,85 @@
+body {
+    background: #ffffff ;
+    
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 15%;
+  }
+  
+  
+  /**
+    Component
+  **/
+  
+  label {
+      width: 100%;
+  }
+  
+  .card-input-element {
+      display: none;
+  }
+  
+  .card-input {
+      margin: 10px;
+      padding: 00px;
+      border: 2px solid rgb(214, 214, 214);
+    border-radius: 25px;
+  }
+  
+  .card-input:hover {
+      cursor: pointer;
+  }
+  
+  .card-input-element:checked + .card-input {
+       box-shadow: 0 0 1px 1px #2ecc71;
+   }
+   
+   .logo2{
+    width: 128px;
+   }
+   .logo{
+    width: 128px;
+   }
+   .logo3{
+    width: 128px;
+   }
+   .panel-heading{
+    text-align: center;
+   }
+   .panel-body{
+    text-align: center;
+   }
+   .Button{
+    margin-left: 83%;
+    margin-top: 2%;
+    height: 43.61632537841797px;
+    width: 142.03265380859375px;
+    /* left: 1077px; */
+    top: 873px;
+    border-radius: 23px;
+    background: #FD4B69;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    color: #ffffff;
+   
+
+   }
+ 
+   
+   .image-item {
+    display: flex;
+    margin: 20px 0;
+  }
+  .image-item__btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+  button {
+    height: 40px;
+  }
+  

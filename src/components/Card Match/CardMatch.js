@@ -15,13 +15,16 @@ import { red } from '@material-ui/core/colors';
 // import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import MoreVertIcon from '@material-ui/icons/MoreVert;
-import EventIcon from '@material-ui/icons/Event';
+// import EventIcon from '@material-ui/icons/Event';
 // import Avatar from '@material-ui/core/Avatar';
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        maxWidth: '100 %',
+    },
+    root1: {
+        maxWidth: '50 %',
     },
     media: {
         height: 0,
@@ -56,7 +59,7 @@ export default function RecipeReviewCard() {
 
     return (
         <Card className={classes.root}>
-            <CardHeader
+            {/* <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
                         R
@@ -69,30 +72,48 @@ export default function RecipeReviewCard() {
                 }
                 title="September 14, 2022"
                 subheader="10h - 11h"
-            />
+            /> */}
             <CardHeader
-                avatar={
-                    <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <EventIcon />
-                    </IconButton>
-                }
-                title="September 14, 2022"
-                subheader="10h - 11h"
-            />
 
-            <CardContent
-                title="September 14, 2022"
-                subheader="10h - 11h">
-                <Grid>
-                    <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                title="Teams Participate"
+                subheader=""
+            >
+            </CardHeader>
 
-                </Grid>
-                <Grid>
-                    <Avatar alt="Remy Sharp" src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c4e1.png" className={classes.large} />
-
+            <CardContent >
+                <Grid container spacing={3}>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM 1 </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy " src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM  </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy " src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM  </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy " src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM  </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM 1 </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM 1 </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM 1 </Typography>
+                    </Grid>
+                    <Grid xs={3}>
+                        <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                        <Typography title>TEAM 1 </Typography>
+                    </Grid>
                 </Grid>
             </CardContent>
             <CardActions disableSpacing>
@@ -109,31 +130,36 @@ export default function RecipeReviewCard() {
                 </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <Typography paragraph>Method:</Typography>
-                    <Typography paragraph>
-                        Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                        minutes.
-                    </Typography>
-                    <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-                        heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-                        browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-                        and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                        pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-                        saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-                    </Typography>
-                    <Typography paragraph>
-                        Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-                        without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-                        medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-                        again without stirring, until mussels have opened and rice is just tender, 5 to 7
-                        minutes more. (Discard any mussels that don’t open.)
-                    </Typography>
-                    <Typography>
-                        Set aside off of the heat to let rest for 10 minutes, and then serve.
-                    </Typography>
-                </CardContent>
+                <CardHeader
+
+                    title="Matchs"
+                    subheader=""
+                >
+                </CardHeader>
+                <Card item xs={6} className={classes.root1}>
+                    <CardHeader xs={6}
+
+                        title="19 Septembre"
+                        subheader="10h-11h"
+                    >
+                    </CardHeader>
+                    <CardContent >
+                        <Grid item xs={6}>
+
+                            <Grid xs={3}>
+                                <Avatar alt="Remy Sharp" src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                                <Typography title>TEAM 1 </Typography>
+                            </Grid>
+                            <Grid xs={3}>
+                                <Avatar alt="Remy " src="https://upload.wikimedia.org/wikipedia/fr/thumb/8/86/Paris_Saint-Germain_Logo.svg/240px-Paris_Saint-Germain_Logo.svg.png" className={classes.large} />
+                                <Typography title>TEAM 2  </Typography>
+                            </Grid>
+
+
+                        </Grid>
+                    </CardContent>
+                </Card>
+
             </Collapse>
         </Card>
     );

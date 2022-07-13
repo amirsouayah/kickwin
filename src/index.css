@@ -1,0 +1,6 @@
+.rbc-toolbar button {
+    width: 100px;
+}
+.rbc-toolbar-label {
+    width: fit-content;
+}

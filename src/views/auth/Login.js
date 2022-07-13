@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
+// import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from "@material-ui/core/Checkbox";
 import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
@@ -16,20 +16,59 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 // @material-ui/icons components
 import Email from "@material-ui/icons/Email";
 import Lock from "@material-ui/icons/Lock";
+import axios from "axios";
+import { useHistory } from 'react-router-dom'
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 // core components
 import componentStyles from "assets/theme/views/auth/login.js";
 
 const useStyles = makeStyles(componentStyles);
+const initialState = {
+  email: '',
+  password: ''
+
+}
+
+
 
 function Login() {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
+  const [require, setRequire] = useState(null);
+  const [user, setUser] = useState(initialState);
+  const [myuser, setMyuser] = useLocalStorage('user', []);
+
+
+  const mylogin = async () => {
+
+    axios.post('http://localhost:5000/user/login', user)
+      .then(res => {
+        if (res.status === 200) {
+          setUser({ ...user, err: '', success: res.data })
+          setMyuser(res.data)
+          history.push("/profile")
+        }
+      }).catch(err => {
+        setRequire(err.response.data.msg)
+        setUser({ ...user, err: err.response.data, success: '' })
+      });
+
+  }
+  const his = () => {
+
+    history.push("/auth/register")
+  }
+  const handleChangeInput = e => {
+    const { name, value } = e.target
+    setUser({ ...user, [name]: value })
+  }
   return (
     <>
       <Grid item xs={12} lg={5} md={7}>
         <Card classes={{ root: classes.cardRoot }}>
-          <CardHeader
+          {/* <CardHeader
             className={classes.cardHeader}
             title={
               <Box
@@ -92,7 +131,7 @@ function Login() {
                 </Button>
               </Box>
             }
-          ></CardHeader>
+          ></CardHeader> */}
           <CardContent classes={{ root: classes.cardContent }}>
             <Box
               color={theme.palette.gray[600]}
@@ -115,6 +154,7 @@ function Login() {
                 autoComplete="off"
                 type="email"
                 placeholder="Email"
+                onChange={(e) => { setUser({ ...user, ...{ email: e.target.value } }) }}
                 startAdornment={
                   <InputAdornment position="start">
                     <Email />
@@ -132,6 +172,7 @@ function Login() {
                 autoComplete="off"
                 type="password"
                 placeholder="Password"
+                onChange={(e) => { setUser({ ...user, ...{ password: e.target.value } }) }}
                 startAdornment={
                   <InputAdornment position="start">
                     <Lock />
@@ -139,6 +180,17 @@ function Login() {
                 }
               />
             </FormControl>
+            <Box
+              color={theme.palette.gray[600]}
+              textAlign="center"
+              marginBottom="1rem"
+              marginTop=".5rem"
+              fontSize="1rem"
+            >
+              <Box fontSize="80%" fontWeight="400" component="small">
+                {require !== null && require}
+              </Box>
+            </Box>
             <FormControlLabel
               value="end"
               control={<Checkbox color="primary" />}
@@ -150,7 +202,7 @@ function Login() {
               }}
             />
             <Box textAlign="center" marginTop="1.5rem" marginBottom="1.5rem">
-              <Button color="primary" variant="contained">
+              <Button color="primary" variant="contained" onClick={() => mylogin()}>
                 Sign in
               </Button>
             </Box>
@@ -167,13 +219,13 @@ function Login() {
             </a>
           </Grid>
           <Grid item xs={6} component={Box} textAlign="right">
-            <a
+            {/* <a
               href="#admui"
-              onClick={(e) => e.preventDefault()}
+              onClick={() => his()}
               className={classes.footerLinks}
             >
               Create new account
-            </a>
+            </a> */}
           </Grid>
         </Grid>
       </Grid>

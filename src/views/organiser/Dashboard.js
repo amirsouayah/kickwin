@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // javascipt plugin for creating charts
 import Chart from "chart.js";
 // react plugin used to create charts
@@ -28,15 +28,14 @@ import TableRow from "@material-ui/core/TableRow";
 
 // core components
 import HeaderOrga from "components/Headers/HeaderOrgaDash";
-
+import componentStyles from "assets/theme/views/admin/dashboard.js";
 import {
   chartOptions,
   parseOptions,
   // chartExample1,
   // chartExample2,
 } from "variables/charts.js";
-
-import componentStyles from "assets/theme/views/admin/dashboard.js";
+import axios from "axios";
 
 const useStyles = makeStyles(componentStyles);
 
@@ -45,6 +44,33 @@ function Dashboard() {
   const theme = useTheme();
   const [activeNav, setActiveNav] = React.useState(1);
   const [chartExample1Data, setChartExample1Data] = React.useState("data1");
+
+  useEffect(() => {
+
+
+    getDetailsLeague();
+
+
+  }, []);
+
+
+
+  const [data, setData] = useState();
+
+
+
+
+
+  const getDetailsLeague = () => {
+    axios.get(`http://localhost:5000/league/search/`)
+      .then(res => {
+        if (res.status === 200) {
+          setData(res.data)
+          // console.log("league ", res.data.length);
+        }
+      }).catch(err => {
+      });
+  }
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
@@ -65,110 +91,17 @@ function Dashboard() {
         classes={{ root: classes.containerRoot }}
       >
         <Grid container>
-          {/* <Grid
-            item
-            xs={12}
-            xl={8}
-            component={Box}
-            marginBottom="3rem!important"
-            classes={{ root: classes.gridItemRoot }}
-          >
-            <Card
-              classes={{
-                root: classes.cardRoot + " " + classes.cardRootBgGradient,
-              }}
-            >
-              <CardHeader
-                subheader={
-                  <Grid
-                    container
-                    component={Box}
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Grid item xs="auto">
-                      <Box
-                        component={Typography}
-                        variant="h6"
-                        letterSpacing=".0625rem"
-                        marginBottom=".25rem!important"
-                        className={classes.textUppercase}
-                      >
-                        <Box component="span" color={theme.palette.gray[400]}>
-                          Overview
-                        </Box>
-                      </Box>
-                      <Box
-                        component={Typography}
-                        variant="h2"
-                        marginBottom="0!important"
-                      >
-                        <Box component="span" color={theme.palette.white.main}>
-                          Total Feeds
-                        </Box>
-                      </Box>
-                    </Grid>
-                    <Grid item xs="auto">
-                      <Box
-                        justifyContent="flex-end"
-                        display="flex"
-                        flexWrap="wrap"
-                      >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          component={Box}
-                          marginRight="1rem!important"
-                          onClick={() => toggleNavs(1)}
-                          classes={{
-                            root:
-                              activeNav === 1
-                                ? ""
-                                : classes.buttonRootUnselected,
-                          }}
-                        >
-                          Month
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => toggleNavs(2)}
-                          classes={{
-                            root:
-                              activeNav === 2
-                                ? ""
-                                : classes.buttonRootUnselected,
-                          }}
-                        >
-                          Week
-                        </Button>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                }
-                classes={{ root: classes.cardHeaderRoot }}
-              ></CardHeader>
-              <CardContent>
-                <Box position="relative" height="350px">
-                  <Line
-                    data={chartExample1[chartExample1Data]}
-                    options={chartExample1.options}
-                    getDatasetAtEvent={(e) => console.log(e)}
-                  />
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid> */}
+
           <Grid item xs={12} xl={12}>
-          
-            <Card classes={{ root: classes.cardRoot }}>
+
+            <Card classes={{ root: classes.cardRoot }} >
               <CardHeader
                 title={
                   <Box component="span" color={theme.palette.gray[600]}>
-                    
+
                   </Box>
                 }
-                subheader="Number of Goals in tournements"
+                subheader="Number of Teams in Competition"
                 classes={{ root: classes.cardHeaderRoot }}
                 titleTypographyProps={{
                   component: Box,
@@ -188,66 +121,24 @@ function Dashboard() {
               ></CardHeader>
               <CardContent>
                 <Box position="relative" height="350px">
-                  {/* <Bar
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  /> */}
                   <Table>
-                  <TableRow>
-                    <TableCell align='center' style={{width: '10%'}}>
-                      League EAST
-                    </TableCell>
-                    <TableCell align='center'>
-                      <LinearProgress variant="determinate" value={25}/>
-                    </TableCell>
-                    <TableCell style={{width: '10%'}}>
-                      25%
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align='center' style={{width: '10%'}}>
-                      Gala Cup
-                    </TableCell>
-                    <TableCell align='center'>
-                      <LinearProgress variant="determinate" value={13}/>
-                    </TableCell>
-                    <TableCell style={{width: '10%'}}>
-                      13%
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align='center' style={{width: '10%'}}>
-                      Ref Chompions
-                    </TableCell>
-                    <TableCell align='center'>
-                      <LinearProgress variant="determinate" value={70}/>
-                    </TableCell>
-                    <TableCell style={{width: '10%'}}>
-                      70%
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align='center' style={{width: '10%'}}>
-                      URT League
-                    </TableCell>
-                    <TableCell align='center'>
-                      <LinearProgress variant="determinate" value={60}/>
-                    </TableCell>
-                    <TableCell style={{width: '10%'}}>
-                      60%
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align='center' style={{width: '10%'}}>
-                      FCR competition
-                    </TableCell>
-                    <TableCell align='center'>
-                      <LinearProgress variant="determinate" value={40}/>
-                    </TableCell>
-                    <TableCell style={{width: '10%'}}>
-                      40%
-                    </TableCell>
-                  </TableRow>
+                    {data &&
+                      data.map((element) => {
+                        return (
+                          <TableRow>
+                            <TableCell align='center' style={{ width: '10%' }}>
+                              {element.name}
+                            </TableCell>
+                            <TableCell align='center'>
+                              <LinearProgress variant="determinate" value={element.teams.length} />
+                            </TableCell>
+                            <TableCell style={{ width: '10%' }}>
+                              {element.teams.length} Teams
+                            </TableCell>
+                          </TableRow>)
+                      })}
+
+
                   </Table>
                 </Box>
               </CardContent>
@@ -255,7 +146,7 @@ function Dashboard() {
           </Grid>
         </Grid>
         <Grid container component={Box} marginTop="3rem">
-          
+
         </Grid>
         <style>
           {`

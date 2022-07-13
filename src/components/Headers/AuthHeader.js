@@ -30,7 +30,7 @@ const AuthHeader = () => {
               justifyContent="center"
               color={theme.palette.white.main}
             >
-              <Grid item lg={5} md={6} xs={12}>
+              {/* <Grid item lg={5} md={6} xs={12}>
                 <h1>Welcome!</h1>
                 <Box
                   component="p"
@@ -41,7 +41,7 @@ const AuthHeader = () => {
                   Use these awesome forms to login or create new account in your
                   project for free.
                 </Box>
-              </Grid>
+              </Grid> */}
             </Box>
           </Box>
         </Container>

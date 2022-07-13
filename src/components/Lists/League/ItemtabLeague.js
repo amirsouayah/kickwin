@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
@@ -30,141 +30,152 @@ import Modal from '@material-ui/core/Modal';
 // core components
 
 
+function getModalStyle() {
+  const top = 50
+  const left = 50
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
-const useStyles = makeStyles((theme)=> ({
-  
+const useStyles = makeStyles((theme) => ({
+
   paper: {
-    padding: theme.spacing(3),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    maxWidth:"100%",
-  },  
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    // height: '96%',
+
+  },
 }));
 
 const Itemtab = (props) => {
-  
- 
+
+  const history = useHistory();
   const [dataleague, setDataleague] = useState();
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  // const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = React.useState(getModalStyle);
 
-  const removeleague=(id)=> {
+  const removeleague = (id) => {
     swal({
-      title: "Are you sure?",
-      text: "Are you sure that you want to leave this page?",
+      title: "Are you sure ?",
+      text: "Are you sure that you want to leave this League?",
       icon: "warning",
       dangerMode: true,
       buttons: true,
     })
-    .then(willDelete => {
-      if (willDelete) {
+      .then(willDelete => {
+        if (willDelete) {
           axios.delete(`http://localhost:5000/league/delete/${id}`)
-          .then(res => {
-            if (res.status === 200) {
-            props.getAllLeague()
-            }
-          }).catch(err => {
-        });
-      }
-    });
+            .then(res => {
+              if (res.status === 200) {
+                props.getAllLeague()
+              }
+            }).catch(err => {
+            });
+        }
+      });
 
- }
-
-  const getleague=(id)=> {
-     setOpen(true)
-     axios.get(`http://localhost:5000/league/search/${id}`)
-     .then(res => {
-       if (res.status === 200) {
-        //  console.log(res.data)
-         setDataleague(res.data)
-       }
-     }).catch(err => {
-   });
   }
 
-        return (
-            <>
-             <TableRow display='flex' alignContent="space-around">
-                  <TableCell 
-                    classes={{
-                      root:
-                        classes.tableCellRoot +
-                        " " +
-                        classes.tableCellRootBodyHead,
-                    }}
-                    component="th"
-                    variant="head"
-                    scope="row"
-                  >
-                    <Box alignItems="center" display="flex">
-                      <Box
-                        component={Avatar}
-                        marginRight="1rem"
-                        alt="..."
-                        // src={require("assets/img/theme/bootstrap.jpg").default}
-                        src={props.item.photo}
-                      />
-                      <Box display="flex" alignItems="flex-start">
-                        <Box fontSize=".875rem" component="span" width="50%">
-                          {props.item.name}
-                        </Box>
-                      </Box>
-                    </Box>
-                  </TableCell>
-                  <TableCell classes={{ root: classes.tableCellRoot }}>
-                    <Box display="flex" alignItems="flex-start">
-                        <Box fontSize=".875rem" component="span" width="50%">
-                        {props.item.numOfTeams}
-                        </Box>
-                      </Box>
-                    {/* <img src={props.item.photo}/> */}  
-                  </TableCell>
-                  <TableCell classes={{ root: classes.tableCellRoot }}>
-                    <Box display="flex" alignItems="flex-start">
-                        <Box fontSize=".875rem" component="span" width="50%">
-                        {props.item.startDate}
-                        </Box>
-                      </Box>
-                  </TableCell>
-                  <TableCell classes={{ root: classes.tableCellRoot }}>
-                    <Box display="flex" alignItems="flex-start">
-                        <Box fontSize=".875rem" component="span" width="50%">
-                        {props.item.endDate}
-                        </Box>
-                      </Box>
-                  </TableCell>
-                  
-                 
-                  <TableCell classes={{ root: classes.tableCellRoot }}>
-                      <Tooltip title="Edit">
-                      <IconButton>
-                        <EditIcon  onClick={()=>getleague(props.item._id)}/>
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                  <TableCell classes={{ root: classes.tableCellRoot }} >
-                      <Tooltip title="Delete">
-                      <IconButton>
-                        <DeleteIcon onClick={()=>removeleague(props.item._id)}/>
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-                 
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={open}
-                    onClose={()=>setOpen(false)}
-                >
-                    <div  className={classes.paper}>
-                        <FormLeague sendData='update' dataForm={dataleague} setOpen={setOpen}/>
-                    </div>
-                </Modal> 
-            </>
-        );
-    }
+  const getleague = (id) => {
+    setOpen(true)
+    axios.get(`http://localhost:5000/league/search/${id}`)
+      .then(res => {
+        if (res.status === 200) {
+          //  console.log(res.data)
+          setDataleague(res.data[0])
+        }
+      }).catch(err => {
+      });
+  }
+
+  return (
+    <>
+      <TableRow display='flex' alignContent="space-around">
+        <TableCell onClick={() => history.push(`/organiser/League/${props.item._id}`)}
+          classes={{
+            root:
+              classes.tableCellRoot +
+              " " +
+              classes.tableCellRootBodyHead,
+          }}
+          component="th"
+          variant="head"
+          scope="row"
+        >
+          <Box alignItems="center" display="flex">
+            <Box
+              component={Avatar}
+              marginRight="1rem"
+              alt="..."
+              // src={require("assets/img/theme/bootstrap.jpg").default}
+              src={props.item.photo}
+            />
+            <Box display="flex" alignItems="flex-start">
+              <Box fontSize=".875rem" component="span" width="50%">
+                {props.item.name}
+              </Box>
+            </Box>
+          </Box>
+        </TableCell>
+        <TableCell classes={{ root: classes.tableCellRoot }}>
+          <Box display="flex" alignItems="flex-start" justifyContent="center">
+            <Box fontSize=".875rem" component="span" width="50%">
+              {props.item.numOfTeams}
+            </Box>
+          </Box>
+          {/* <img src={props.item.photo}/> */}
+        </TableCell>
+        <TableCell classes={{ root: classes.tableCellRoot }}>
+          <Box display="flex" alignItems="flex-start">
+            <Box fontSize=".875rem" component="span" width="50%">
+              {props.item.startDate}
+            </Box>
+          </Box>
+        </TableCell>
+        <TableCell classes={{ root: classes.tableCellRoot }}>
+          <Box display="flex" alignItems="flex-start">
+            <Box fontSize=".875rem" component="span" width="50%">
+              {props.item.endDate}
+            </Box>
+          </Box>
+        </TableCell>
+
+
+        <TableCell classes={{ root: classes.tableCellRoot }}>
+          <Tooltip title="Edit">
+            <IconButton>
+              <EditIcon onClick={() => getleague(props.item._id)} />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+        <TableCell classes={{ root: classes.tableCellRoot }} >
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon onClick={() => removeleague(props.item._id)} />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+      </TableRow>
+
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <FormLeague sendData='update' dataForm={dataleague} setOpen={setOpen} getAllLeague={props.getAllLeague} />
+        </div>
+      </Modal>
+    </>
+  );
+}
 
 
 export default Itemtab;

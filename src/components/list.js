@@ -23,6 +23,8 @@ import TableRow from "@material-ui/core/TableRow";
 import { TableContainer } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 import Table from "@material-ui/core/Table";
+import { useParams } from "react-router-dom";
+
 
 
 
@@ -40,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 const List = (props) => {
   const classes = useStyles();
   const [datateam, setDatateam] = useState();
+  const { id } = useParams();
+
 
   useEffect(() => {
 

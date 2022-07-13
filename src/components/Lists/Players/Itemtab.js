@@ -16,50 +16,40 @@ import swal from 'sweetalert';
 import Modal from '@material-ui/core/Modal';
 import FormPlayer from 'components/Form/FormPlayer';
 
-// core components
-
-
-
-// import Container from "@material-ui/core/Container";
-
-
-
-// @material-ui/icons components
-
+function getModalStyle() {
+  const top = 50
+  const left = 50
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
 
   paper: {
-    padding: theme.spacing(3),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    maxWidth: "100%",
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    // height: '96%',
+
   },
 }));
 
 
 const Itemtab = (props) => {
-  // function rand() {
-  //   return Math.round(Math.random() * 20) - 10;
-  // }
-  // function getModalStyle() {
-  //   const top = 50 + rand();
-  //   const left = 50 + rand();
-  //   return {
-  //       top: `${top}%`,
-  //       left: `${left}%`,
-  //       transform: `translate(-${top}%, -${left}%)`,
-  //   };
-  // }
+
   const [open, setOpen] = React.useState(false);
   const [dataplayer, setDataplayer] = useState();
   const classes = useStyles();
-  // const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = React.useState(getModalStyle);
 
   const removeplayer = (id) => {
     swal({
       title: "Are you sure?",
-      text: "Are you sure that you want to leave this page?",
+      text: "Are you sure that you want to leave this Player?",
       icon: "warning",
       dangerMode: true,
       buttons: true,
@@ -80,7 +70,7 @@ const Itemtab = (props) => {
 
   const getplayer = (id) => {
     setOpen(true)
-    axios.get(`http://localhost:5000/playergetplayer/search/${id}`)
+    axios.get(`http://localhost:5000/player/search/${id}`)
       .then(res => {
         if (res.status === 200) {
           //  console.log(res.data)
@@ -147,7 +137,7 @@ const Itemtab = (props) => {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <div className={classes.paper}>
+        <div style={modalStyle} className={classes.paper}>
           <FormPlayer sendData='update' dataForm={dataplayer} setOpen={setOpen} getAllPlayer={props.getAllPlayer} />
         </div>
       </Modal>

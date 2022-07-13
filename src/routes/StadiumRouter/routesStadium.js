@@ -14,15 +14,17 @@
 // import LocationOn from "@material-ui/icons/LocationOn";
 
 import { Add } from "@material-ui/icons";
-import Calendar from "views/stadium/Calendar";
+// import Calendar from "views/stadium/Calendar";
 // import Person from "@material-ui/icons/Person";
 // import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 // import List from "components/list";
 // import { Add } from "@material-ui/icons";
 // import AddTeam from "components/Teams/AddTeam";
-import Tables from "../../views/stadium/TablesStadium";
+// import Tables from "../../views/stadium/TablesStadium";
 // import TabPanel from "../../components/Tabs/TabPanel"
 import SimpleTabs from "components/Tabs/SimpleTab";
+import ListStadiums from "components/Lists/Stadium/liststadiums";
+import FormStadium from "views/stadium/FormStadium";
 // import AddTeam from "components/Teams/AddTeam";
 // import TeamsList from "components/Teams/TeamList";
 // import AddTeam from "components/Teams/AddTeam";
@@ -30,30 +32,39 @@ import SimpleTabs from "components/Tabs/SimpleTab";
 var routesStadium = [
 
   {
+    path: "/listStadium",
+    name: "My Stadiums",
+    icon: Add,
+    iconColor: "WarningLight",
+    component: ListStadiums,
+    layout: "/stadium",
+  },
+  {
     path: "/add",
-    name: "Add Stadium",
+    name: "New Stadium",
     icon: Add,
     iconColor: "WarningLight",
-    component: Tables,
+    component: FormStadium,
     layout: "/stadium",
   },
+  // {
+  //   path: "/calendar",
+  //   name: "Calendar",
+  //   icon: Add,
+  //   iconColor: "WarningLight",
+  //   component: Calendar,
+  //   layout: "/stadium",
+  // },
   {
-    path: "/calendar",
-    name: "Calendar",
-    icon: Add,
-    iconColor: "WarningLight",
-    component: Calendar,
-    layout: "/stadium",
-  },
-  {
-    path: "/TabStadium",
-    name: "Stadium",
-    icon: Add,
+    path: "/TabStadium/:id",
+    name: "",
+
     iconColor: "WarningLight",
     component: SimpleTabs,
     layout: "/stadium",
   },
-  
-  
+
+
+
 ];
 export default routesStadium;

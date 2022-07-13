@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -20,72 +20,88 @@ import axios from 'axios';
 // @material-ui/icons components
 // import MoreVert from "@material-ui/icons/MoreVert";
 // import componentStyles from "assets/theme/views/admin/tables.js";
+import { useParams } from "react-router-dom";
 
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import EditIcon from '@material-ui/icons/Edit';
-// import IconButton from '@material-ui/core/IconButton';
+import { DeleteOutlined } from '@material-ui/icons';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 import Form from '../../Form/FormMatch';
 import Modal from '@material-ui/core/Modal';
+import swal from 'sweetalert';
 // import Stadium from 'layouts/Stadium';
-// import Tooltip from '@material-ui/material/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
+
 // import Container from "@material-ui/core/Container";
 // core components
 
 
+function getModalStyle() {
+  const top = 50
+  const left = 50
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
 
   paper: {
-    padding: theme.spacing(3),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    maxWidth: "100%",
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    // height: '96%',
+
   },
 }));
 
-const Itemtab = ({ item, teams }) => {
+const Itemtab = (props) => {
 
 
-  function rand() {
-    return Math.round(Math.random() * 20) - 10;
-  }
-  function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-    };
-  }
-  const useStyles = makeStyles(theme => ({
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      position: 'absolute',
-      maxWidth: "100%",
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  }));
+  const [datamatch, setDatamatch] = useState();
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
+  const { id } = useParams();
+
+  const removematch = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure that you want to leave this Match?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: true,
+    })
+      .then(willDelete => {
+        if (willDelete) {
+          axios.delete(`http://localhost:5000/match/delete/${id}`)
+            .then(res => {
+              if (res.status === 200) {
+                props.getAllMatch()
+                window.location.reload()
+              }
+            }).catch(err => {
+            });
+        }
+      });
+
+  }
 
   const getmatch = (id) => {
     setOpen(true)
     axios.get(`http://localhost:5000/match/search/${id}`)
       .then(res => {
         if (res.status === 200) {
-          //  setDatateam(res.data)
+          console.log(res.data);
+          setDatamatch(res.data)
         }
       }).catch(err => {
       });
   }
+
+
 
 
 
@@ -108,20 +124,14 @@ const Itemtab = ({ item, teams }) => {
               component={Avatar}
               marginRight="1rem"
               alt="..."
-              src={require("assets/img/theme/bootstrap.jpg").default}
+              src={props.match.teams[0].photo}
             />
             <Box display="flex" alignItems="flex-start">
               <Box fontSize=".875rem" component="span">
-                {item.matchName}
+                {props.match.teams[0].name}
               </Box>
             </Box>
           </Box>
-        </TableCell>
-        <TableCell classes={{ root: classes.tableCellRoot }}>
-          {item.maxSlot}
-        </TableCell>
-        <TableCell classes={{ root: classes.tableCellRoot }}>
-          {item.date}
         </TableCell>
         <TableCell
           classes={{
@@ -135,19 +145,40 @@ const Itemtab = ({ item, teams }) => {
           scope="row"
         >
           <Box alignItems="center" display="flex">
+            <Box
+              component={Avatar}
+              marginRight="1rem"
+              alt="..."
+              src={props.match.teams[1].photo}
+            />
             <Box display="flex" alignItems="flex-start">
               <Box fontSize=".875rem" component="span">
-                {
-                  teams.map(team => (
-                  <p>{team.name}</p>
-                 
-                  ))
-                }
+
+                {props.match.teams[1].name}
               </Box>
             </Box>
           </Box>
         </TableCell>
+        <TableCell classes={{ root: classes.tableCellRoot }}>
+          {props.match.date}
+        </TableCell>
 
+
+        <TableCell
+          style={{ width: "10%" }}
+          classes={{ root: classes.tableCellRoot }}>
+          <Tooltip title="Edit">
+            <IconButton>
+              <EditIcon onClick={() => getmatch(props.match._id)} />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteOutlined onClick={() => removematch(props.match._id)} />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
       </TableRow>
 
       <Modal
@@ -157,7 +188,7 @@ const Itemtab = ({ item, teams }) => {
         onClose={() => setOpen(false)}
       >
         <div style={modalStyle} className={classes.paper}>
-          <Form sendData='update' />
+          <Form sendData='update' dataForm={datamatch} setOpen={setOpen} getAllMatch={props.getAllMatch} />
         </div>
       </Modal>
     </>

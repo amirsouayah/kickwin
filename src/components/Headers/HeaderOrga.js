@@ -21,48 +21,50 @@ import pic from "../../assets/images/yellow.png";
 
 const useStyles = makeStyles(componentStyles);
 
-const Header = (props) => {
+const HeaderOrga = (props) => {
   const classes = useStyles();
   const theme = useTheme();
+
   return (
     <>
-      <div className={classes.header}>
-        <Container
-          maxWidth={false}
-          component={Box}
-          classes={{ root: classes.containerRoot }}
-        >
-          <div>
-            <Grid container spacing ={3}>
-            <Grid item xl={6} lg={6} xs={12} className="nbUntreated ">
-                <CardStats
-                  subtitle="Name Competition"
-                  title={props.name}
-                  icon={EmojiEvents}
-                  color="bgInfo"
-                  
-                  footer={
-                    <>
-                      
-                      {/* <Box component="span" whiteSpace="nowrap">
+      {props.data &&
+        <div className={classes.header}>
+          <Container
+            maxWidth={false}
+            component={Box}
+            classes={{ root: classes.containerRoot }}
+          >
+            <div>
+              <Grid container spacing={3}>
+                <Grid item xl={6} lg={6} xs={12} className="nbUntreated ">
+                  <CardStats
+                    subtitle="Name Competition"
+                    title={props.data.name}
+                    icon={EmojiEvents}
+                    color="bgInfo"
+
+                    footer={
+                      <>
+
+                        {/* <Box component="span" whiteSpace="nowrap">
                         Since last month
                       </Box> */}
-                    </>
-                  }
-                />
-              </Grid> 
-            <Grid item xl={3} lg={6} xs={12} >
-              <CardStats
-                    
-                    
-                    title="Teams"
+                      </>
+                    }
+                  />
+                </Grid>
+                <Grid item xl={3} lg={6} xs={12} >
+                  <CardStats
+
                     icon={InsertChartOutlined}
+                    subtitle="Teams"
+
                     color="bgError"
                     backgroundColor="red"
                     footer={
                       <>
                         <Box
-                          
+
                           component="span"
                           fontSize=".875rem"
                           color={theme.palette.success.main}
@@ -70,25 +72,25 @@ const Header = (props) => {
                           display="flex"
                           alignItems="center"
                         >
-                        <img src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/football-icon.png" style={{height: 30}}/>
-                          
+                          <img src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/football-icon.png" style={{ height: 30 }} />
+
                         </Box>
                         <Box component="span" whiteSpace="nowrap">
-                          {props.numOfTeams}
+                          {props.data.numOfTeams}
                         </Box>
                       </>
                     }
                   />
-            </Grid>
-              <Grid item xl={3} lg={6} xs={12}>
-                <CardStats
-                  subtitle="Prize"
-                  title={props.prize}
-                  icon={InsertChartOutlined}
-                  color="bgError"
-                  footer={
-                    <>
-                      {/* <Box
+                </Grid>
+                <Grid item xl={3} lg={6} xs={12}>
+                  <CardStats
+                    subtitle="Prize"
+                    title={props.data.prize}
+                    icon={InsertChartOutlined}
+                    color="bgError"
+                    footer={
+                      <>
+                        {/* <Box
                         component="span"
                         fontSize=".875rem"
                         color={theme.palette.success.main}
@@ -106,35 +108,35 @@ const Header = (props) => {
                       <Box component="span" whiteSpace="nowrap">
                         Since last month
                       </Box> */}
-                    </>
-                  }
-                />
-              </Grid> 
-              <Grid item xl={6} lg={6} xs={12}>
-                <CardStats
-                  subtitle="Last Registration Date"
-                  title={props.date}
-                  icon={EmojiEvents}
-                  color="bgInfo"
-                  footer={
-                    <>
-{/*                       
+                      </>
+                    }
+                  />
+                </Grid>
+                <Grid item xl={6} lg={6} xs={12}>
+                  <CardStats
+                    subtitle="Last Registration Date"
+                    title={props.data.startDate}
+                    icon={EmojiEvents}
+                    color="bgInfo"
+                    footer={
+                      <>
+                        {/*                       
                       <Box component="span" whiteSpace="nowrap">
                         Since last month
                       </Box> */}
-                    </>
-                  }
-                />
-              </Grid>
-              <Grid item xl={3} lg={6} xs={12}>
-                <CardStats
-                  subtitle="Start Date"
-                  title={props.start}
-                  icon={PieChart}
-                  color="bgWarning"
-                  footer={
-                    <>
-                      {/* <Box
+                      </>
+                    }
+                  />
+                </Grid>
+                <Grid item xl={3} lg={6} xs={12}>
+                  <CardStats
+                    subtitle="Start Date"
+                    title={props.data.startDate}
+                    icon={PieChart}
+                    color="bgWarning"
+                    footer={
+                      <>
+                        {/* <Box
                         component="span"
                         fontSize=".875rem"
                         color={theme.palette.error.main}
@@ -152,19 +154,19 @@ const Header = (props) => {
                       <Box component="span" whiteSpace="nowrap">
                         Since last week
                       </Box> */}
-                    </>
-                  }
-                />
-              </Grid>
-              <Grid item xl={3} lg={6} xs={12}>
-                <CardStats
-                  subtitle="End Date"
-                  title={props.end}
-                  icon={GroupAdd}
-                  color="bgWarningLight"
-                  footer={
-                    <>
-                      {/* <Box
+                      </>
+                    }
+                  />
+                </Grid>
+                <Grid item xl={3} lg={6} xs={12}>
+                  <CardStats
+                    subtitle="End Date"
+                    title={props.data.endDate}
+                    icon={GroupAdd}
+                    color="bgWarningLight"
+                    footer={
+                      <>
+                        {/* <Box
                         component="span"
                         fontSize=".875rem"
                         color={theme.palette.warning.main}
@@ -182,27 +184,29 @@ const Header = (props) => {
                       <Box component="span" whiteSpace="nowrap">
                         Since yesterday
                       </Box> */}
-                    </>
-                  }
-                />
+                      </>
+                    }
+                  />
+                </Grid>
+
               </Grid>
-              
-            </Grid>
-          </div>
-        </Container>
-        <style>
-          {`
-          .nbUntreated .makeStyles-cardRoot-84{
+            </div>
+          </Container>
+          <style>
+            {`
+          .makeStyles-header-135{
             background-image: url('${pic}');
+            background: linear-gradient(87deg,#341A52,#341A52);
             background-repeat: no-repeat;
             background-size: cover;
           }
 
           `}
-        </style>
-      </div>
+          </style>
+        </div>
+      }
     </>
   );
 };
 
-export default Header;
+export default HeaderOrga;

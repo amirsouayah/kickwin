@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
+// import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from "@material-ui/core/Checkbox";
 import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
@@ -17,83 +17,43 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Email from "@material-ui/icons/Email";
 import Lock from "@material-ui/icons/Lock";
 import School from "@material-ui/icons/School";
+import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
 // core components
 import componentStyles from "assets/theme/views/auth/register.js";
 
 const useStyles = makeStyles(componentStyles);
+const initialState = {
+  name: '',
+  email: '',
+  password: ''
+
+}
 
 function Register() {
   const classes = useStyles();
+  const history = useHistory()
   const theme = useTheme();
+  const [user, setUser] = useState(initialState)
+
+  const { name, email, password } = user
+
+  const handleChangeInput = e => {
+    const { name, value } = e.target
+    setUser({ ...user, [name]: value, err: '', success: '' })
+
+  }
+  const myRegister = () => {
+    axios.post('http://localhost:5000/user/register', user)
+
+    history.push("/auth/login")
+  }
   return (
     <>
       <Grid item xs={12} lg={6} md={8}>
         <Card classes={{ root: classes.cardRoot }}>
-          <CardHeader
-            className={classes.cardHeader}
-            title={
-              <Box
-                fontSize="80%"
-                fontWeight="400"
-                component="small"
-                color={theme.palette.gray[600]}
-              >
-                Sign up with
-              </Box>
-            }
-            titleTypographyProps={{
-              component: Box,
-              textAlign: "center",
-              marginBottom: "1rem!important",
-              marginTop: ".5rem!important",
-              fontSize: "1rem!important",
-            }}
-            subheader={
-              <Box textAlign="center">
-                <Box
-                  component={Button}
-                  variant="contained"
-                  marginRight="2rem!important"
-                  classes={{ root: classes.buttonRoot }}
-                >
-                  <Box component="span" marginRight="4px">
-                    <Box
-                      alt="..."
-                      component="img"
-                      width="20px"
-                      className={classes.buttonImg}
-                      src={
-                        require("assets/img/icons/common/github.svg").default
-                      }
-                    ></Box>
-                  </Box>
-                  <Box component="span" marginLeft=".75rem">
-                    Github
-                  </Box>
-                </Box>
-                <Button
-                  variant="contained"
-                  classes={{ root: classes.buttonRoot }}
-                >
-                  <Box component="span" marginRight="4px">
-                    <Box
-                      alt="..."
-                      component="img"
-                      width="20px"
-                      className={classes.buttonImg}
-                      src={
-                        require("assets/img/icons/common/google.svg").default
-                      }
-                    ></Box>
-                  </Box>
-                  <Box component="span" marginLeft=".75rem">
-                    Google
-                  </Box>
-                </Button>
-              </Box>
-            }
-          ></CardHeader>
+
           <CardContent classes={{ root: classes.cardContent }}>
             <Box
               color={theme.palette.gray[600]}
@@ -103,7 +63,7 @@ function Register() {
               fontSize="1rem"
             >
               <Box fontSize="80%" fontWeight="400" component="small">
-                Or sign up with credentials
+                Sign up with credentials
               </Box>
             </Box>
             <FormControl
@@ -116,6 +76,7 @@ function Register() {
                 autoComplete="off"
                 type="text"
                 placeholder="Name"
+                onChange={(e) => { setUser({ ...user, ...{ name: e.target.value } }) }}
                 startAdornment={
                   <InputAdornment position="start">
                     <School />
@@ -133,6 +94,7 @@ function Register() {
                 autoComplete="off"
                 type="email"
                 placeholder="Email"
+                onChange={(e) => { setUser({ ...user, ...{ email: e.target.value } }) }}
                 startAdornment={
                   <InputAdornment position="start">
                     <Email />
@@ -150,6 +112,7 @@ function Register() {
                 autoComplete="off"
                 type="password"
                 placeholder="Password"
+                onChange={(e) => { setUser({ ...user, ...{ password: e.target.value } }) }}
                 startAdornment={
                   <InputAdornment position="start">
                     <Lock />
@@ -175,28 +138,42 @@ function Register() {
               </Box>
             </Box>
             <FormControlLabel
-              value="end"
+              value="reporter"
               control={<Checkbox color="primary" />}
-              label={
-                <>
-                  I agree with the{" "}
-                  <Box
-                    color={theme.palette.primary.main}
-                    component="a"
-                    textDecoration="none"
-                  >
-                    Privacy Policy
-                  </Box>
-                </>
-              }
+              onChange={(e) => { setUser({ ...user, ...{ role: e.target.value } }) }}
+              label="Reporter"
               labelPlacement="end"
               classes={{
                 root: classes.formControlLabelRoot,
                 label: classes.formControlLabelLabel,
               }}
             />
+            <FormControlLabel
+              value="stadium"
+              control={<Checkbox color="primary" />}
+              label='Stadium'
+              onChange={(e) => { setUser({ ...user, ...{ role: e.target.value } }) }}
+              labelPlacement="end"
+              classes={{
+                root: classes.formControlLabelRoot,
+                label: classes.formControlLabelLabel,
+
+              }}
+            />
+            <FormControlLabel
+              value="organizer"
+              control={<Checkbox color="primary" />}
+              label="Organizer"
+              onChange={(e) => { setUser({ ...user, ...{ role: e.target.value } }) }}
+              labelPlacement="end"
+              classes={{
+                root: classes.formControlLabelRoot,
+                label: classes.formControlLabelLabel,
+              }}
+            />
+
             <Box textAlign="center" marginTop="1.5rem" marginBottom="1.5rem">
-              <Button color="primary" variant="contained">
+              <Button color="primary" variant="contained" onClick={() => myRegister()} >
                 Create account
               </Button>
             </Box>

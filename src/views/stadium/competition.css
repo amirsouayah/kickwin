@@ -1,0 +1,126 @@
+body {
+    background: #ffffff ;
+    
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 15%;
+  }
+  
+  
+  /**
+    Component
+  **/
+  
+  label {
+      width: 100%;
+  }
+  
+  .card-input-element {
+      display: none;
+      width: 300px;
+  }
+  .card-input1-element {
+      display: none;
+      
+      width: 300px;
+  }
+  
+  .card-input {
+      margin: 10px;
+      padding: 00px;
+      border: 2px solid rgb(214, 214, 214);
+    border-radius: 25px;
+    width: 300px;
+    height: 230px;
+  }
+  .card-input1 {
+     
+    margin: 10px;
+    padding: 00px;
+    border: 2px solid rgb(214, 214, 214);
+  border-radius: 25px;
+   
+  }
+  
+  .card-input:hover {
+      cursor: pointer;
+  }
+  .card-input1:hover {
+      cursor: pointer;
+  }
+  
+  .card-input-element:checked + .card-input {
+       box-shadow: 0 0 1px 1px #2ecc71;
+   }
+  .card-input1-element:checked + .card-input1 {
+       box-shadow: 0 0 1px 1px #2ecc71;
+   }
+   
+   .logo2{
+    width: 128px;
+    
+   }
+   .panel-heading{
+    text-align: center;
+    margin-top: 5%;
+   }
+   .panel-body{
+    text-align: center;
+   }
+   .Button{
+    margin-left: 83%;
+    margin-top: 2%;
+    height: 43.61632537841797px;
+    width: 142.03265380859375px;
+    /* left: 1077px; */
+    top: 873px;
+    border-radius: 23px;
+    background: #FD4B69;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    color: #ffffff;
+   
+
+   }
+   .select{
+    font: inherit;
+    color: #8898aa;
+    width: 100%;
+    border: 1px solid #cad1d7;
+    height: calc(1.5em + 1.25rem + 2px);
+    margin: 0;
+    display: block;
+    padding: 0.625rem 0.75rem;
+    font-size: .875rem;
+    min-width: 0;
+    background: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: all .2s cubic-bezier(.68,-.55,.265,1.55);
+    font-weight: 400;
+    line-height: 1.5;
+    border-radius: 0.375rem;
+    animation-name: mui-auto-fill-cancel;
+    letter-spacing: inherit;
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    animation-duration: 10ms;
+    -webkit-tap-highlight-color: transparent;
+   }
+   .image-item {
+    display: flex;
+    margin: 20px 0;
+  }
+  .image-item__btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+  button {
+    height: 40px;
+  }
+  

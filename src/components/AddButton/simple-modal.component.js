@@ -3,12 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Form from '../Form/Form';
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
 function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
+    const top = 50
+    const left = 50
     return {
         top: `${top}%`,
         left: `${left}%`,
@@ -22,14 +19,15 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
     },
     button: {
-        color :'#f5365c'
+        color: '#f5365c'
     },
     paper: {
         position: 'absolute',
-        width: 700,
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        // height: '96%',
+
     },
 }));
 export default function SimpleModal() {
@@ -44,15 +42,15 @@ export default function SimpleModal() {
     };
     return (
         <div>
-            
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          size="small"
-                          onClick={handleOpen}
-                        >
-                        ADD TEAMS
-                        </Button>
+
+            <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={handleOpen}
+            >
+                ADD TEAMS
+            </Button>
             <Modal
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
